@@ -42,4 +42,10 @@ def get_movies_by_genre(genre)
     movies = JSON.parse(open("https://api.themoviedb.org/3/discover/movie?with_genres="+ get_genre_id(genre) +"&api_key=" + ENV['MOVIE_API']){ |x| x.read })
 end
 
-puts get_movies_by_genre('Comedy')
+def get_topic(genre, topic)
+    get_movies_by_genre(genre)['results'].each do |i|
+        puts i[topic]
+    end
+end
+
+get_topic('Comedy', 'title')
