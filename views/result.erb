@@ -24,9 +24,11 @@
     </div>
     
     <div class="container-fluid">
-      <h2><%= @movie.movie_titles %></h2>
-      <h2><%= @movie.movie_posters %></h2>
-      <h2><%= @movie.movie_summaries %></h2>
+      <% for i in 0..@movie.movie_titles.length %>
+        <h2><%= @movie.movie_titles[i] %></h2>
+        <h2><%= @movie.movie_posters[i] %></h2>
+        <h2><%= @movie.movie_summaries[i] %></h2>
+      <%end%>
     </div>
     
   </body>
