@@ -52,10 +52,10 @@ class Movie
     end
 
     def get_info(genre_arr)
-        genre_arr.each do |genre|
-            @title = get_movies_by_genre(genre)["results"].first["title"]
-            @poster = get_movies_by_genre(genre)["results"].first["poster_path"]
-            @summary = get_movies_by_genre(genre)["results"].first["overview"]
+        get_movies_by_genre().each do |genre|
+            @title = get_movies_by_genre(genre)["results"]["title"]
+            @poster = get_movies_by_genre(genre)["results"]["poster_path"]
+            @summary = get_movies_by_genre(genre)["results"]["overview"]
             
             if @movie_titles.include?(@title) == false
                 @movie_titles << @title
@@ -65,3 +65,19 @@ class Movie
         end
     end
 end
+
+def get_genre_id(genre)
+    id_arr = []
+    genres = JSON.parse(open('https://api.themoviedb.org/3/genre/movie/list?api_key=' + ENV['MOVIE_API']){ |x| x.read })
+    genres['genres'].each do |i|
+        genre.each do |x|
+            if x == i['name']
+                id_arr.push(i['id'].to_s)
+            end
+        end
+    end
+    return id_arr
+end
+
+list = ['Action', 'Comedy']
+puts get_genre_id(list)
