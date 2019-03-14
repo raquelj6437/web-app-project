@@ -39,12 +39,16 @@ class Movie
     end
  
     def get_genre_id(genre)
+        id_arr = []
         genres = JSON.parse(open('https://api.themoviedb.org/3/genre/movie/list?api_key=' + ENV['MOVIE_API']){ |x| x.read })
         genres['genres'].each do |i|
-            if genre == i['name']
-                return i['id'].to_s
+            genre.each do |x|
+                if x == i['name']
+                    id_arr.push(i['id'].to_s)
+                end
             end
         end
+        return id_arr
     end
 
     def get_movies_by_genre(genre)
@@ -64,19 +68,6 @@ class Movie
             end
         end
     end
-end
-
-def get_genre_id(genre)
-    id_arr = []
-    genres = JSON.parse(open('https://api.themoviedb.org/3/genre/movie/list?api_key=' + ENV['MOVIE_API']){ |x| x.read })
-    genres['genres'].each do |i|
-        genre.each do |x|
-            if x == i['name']
-                id_arr.push(i['id'].to_s)
-            end
-        end
-    end
-    return id_arr
 end
 
 list = ['Action', 'Comedy']
