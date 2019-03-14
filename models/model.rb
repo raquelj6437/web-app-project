@@ -54,11 +54,18 @@ class Movie
     def get_info(genre_arr)
         genre_arr.each do |genre|
             @title = get_movies_by_genre(genre)["results"].first["title"]
-            @movie_titles << @title
             @poster = get_movies_by_genre(genre)["results"].first["poster_path"]
-            @movie_posters << @poster
             @summary = get_movies_by_genre(genre)["results"].first["overview"]
+            
+            @movie_titles << @title
+            @movie_posters << @poster
             @movie_summaries << @summary
+            
+            # for i in @movie_titles
+            #     if i == @title
+            #         puts i
+            #     end
+            # end
         end
     end
 end

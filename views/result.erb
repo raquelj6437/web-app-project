@@ -26,7 +26,7 @@
     <div class="container-fluid">
       <% for i in 0..@movie.movie_titles.length %>
         <h2><%= @movie.movie_titles[i] %></h2>
-        <h2><%= @movie.movie_posters[i] %></h2>
+        <img src=<%= "https://image.tmdb.org/t/p/w500/" + @movie.movie_posters[i].to_s %>>
         <h2><%= @movie.movie_summaries[i] %></h2>
       <%end%>
     </div>
