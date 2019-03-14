@@ -29,23 +29,36 @@ def genres(moods_hash)
     end
 end
 
-def get_genre_id(genre)
-    genres = JSON.parse(open('https://api.themoviedb.org/3/genre/movie/list?api_key=' + ENV['MOVIE_API']){ |x| x.read })
-    genres['genres'].each do |i|
-        if genre == i['name']
-            return i['id'].to_s
+class Movie
+    attr_reader :title, :poster, :summary, :movie_titles, :movie_posters, :movie_summaries
+ 
+    def initialize
+        @movie_titles = []
+        @movie_posters = []
+        @movie_summaries = []
+    end
+ 
+    def get_genre_id(genre)
+        genres = JSON.parse(open('https://api.themoviedb.org/3/genre/movie/list?api_key=' + ENV['MOVIE_API']){ |x| x.read })
+        genres['genres'].each do |i|
+            if genre == i['name']
+                return i['id'].to_s
+            end
+        end
+    end
+
+    def get_movies_by_genre(genre)
+        movies = JSON.parse(open("https://api.themoviedb.org/3/discover/movie?with_genres="+ get_genre_id(genre) +"&api_key=" + ENV['MOVIE_API']){ |x| x.read })
+    end
+
+    def get_info(genre_arr)
+        genre_arr.each do |genre|
+            @title = get_movies_by_genre(genre)["results"].first["title"]
+            @movie_titles << @title
+            @poster = get_movies_by_genre(genre)["results"].first["poster_path"]
+            @movie_posters << @poster
+            @summary = get_movies_by_genre(genre)["results"].first["overview"]
+            @movie_summaries << @summary
         end
     end
 end
-
-def get_movies_by_genre(genre)
-    movies = JSON.parse(open("https://api.themoviedb.org/3/discover/movie?with_genres="+ get_genre_id(genre) +"&api_key=" + ENV['MOVIE_API']){ |x| x.read })
-end
-
-def get_topic(genre, topic)
-    get_movies_by_genre(genre)['results'].each do |i|
-        puts i[topic]
-    end
-end
-
-get_topic('Comedy', 'title')
