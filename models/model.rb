@@ -57,15 +57,11 @@ class Movie
             @poster = get_movies_by_genre(genre)["results"].first["poster_path"]
             @summary = get_movies_by_genre(genre)["results"].first["overview"]
             
-            @movie_titles << @title
-            @movie_posters << @poster
-            @movie_summaries << @summary
-            
-            # for i in @movie_titles
-            #     if i == @title
-            #         puts i
-            #     end
-            # end
+            if @movie_titles.include?(@title) == false
+                @movie_titles << @title
+                @movie_posters << @poster
+                @movie_summaries << @summary
+            end
         end
     end
 end
