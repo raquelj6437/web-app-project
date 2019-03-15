@@ -55,14 +55,14 @@ class Movie
         @movie_arr = []
         genre.each do |id|
             movies = JSON.parse(open("https://api.themoviedb.org/3/discover/movie?with_genres="+ id +"&api_key=" + ENV['MOVIE_API']){ |x| x.read })
-            @movie_arr.push(Hash[movies["results"].sort_by { |k,v| v }[0..4]])
+            @movie_arr.push(movies["results"])
         end
     end
 
     def get_info(genre_arr)
         if @movie_titles.length <= 3 
             @movie_arr.shuffle!
-            @movie_arr.each do |movie|
+            for movie in @movie_arr[0]
                 @title = movie["title"]
                 @poster = movie["poster_path"]
                 @summary = movie["overview"]
@@ -75,5 +75,4 @@ class Movie
             end
         end
     end
-    
 end
