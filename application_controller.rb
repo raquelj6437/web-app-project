@@ -17,7 +17,8 @@ class ApplicationController < Sinatra::Base
     get_mood(@user_mood)
     genres($moods)
     @movie = Movie.new
-    @movie.get_info(@genre_list)
+    @movie.get_movies_by_genre(@movie.get_genre_id(@genre_list))
+    @movie.get_info(@movie_arr)
 
     erb :result
   end

@@ -39,29 +39,41 @@ class Movie
     end
  
     def get_genre_id(genre)
+        @id_arr = []
         genres = JSON.parse(open('https://api.themoviedb.org/3/genre/movie/list?api_key=' + ENV['MOVIE_API']){ |x| x.read })
         genres['genres'].each do |i|
-            if genre == i['name']
-                return i['id'].to_s
+            genre.each do |x|
+                if x == i['name']
+                    @id_arr.push(i['id'].to_s)
+                end
             end
         end
+        return @id_arr
     end
 
     def get_movies_by_genre(genre)
-        movies = JSON.parse(open("https://api.themoviedb.org/3/discover/movie?with_genres="+ get_genre_id(genre) +"&api_key=" + ENV['MOVIE_API']){ |x| x.read })
+        @movie_arr = []
+        genre.each do |id|
+            movies = JSON.parse(open("https://api.themoviedb.org/3/discover/movie?with_genres="+ id +"&api_key=" + ENV['MOVIE_API']){ |x| x.read })
+            @movie_arr.push(Hash[movies["results"].sort_by { |k,v| v }[0..4]])
+        end
     end
 
     def get_info(genre_arr)
-        genre_arr.each do |genre|
-            @title = get_movies_by_genre(genre)["results"].first["title"]
-            @poster = get_movies_by_genre(genre)["results"].first["poster_path"]
-            @summary = get_movies_by_genre(genre)["results"].first["overview"]
+        if @movie_titles.length <= 3 
+            @movie_arr.shuffle!
+            @movie_arr.each do |movie|
+                @title = movie["title"]
+                @poster = movie["poster_path"]
+                @summary = movie["overview"]
             
-            if @movie_titles.include?(@title) == false
-                @movie_titles << @title
-                @movie_posters << @poster
-                @movie_summaries << @summary
+                if @movie_titles.include?(@title) == false
+                    @movie_titles << @title
+                    @movie_posters << @poster
+                    @movie_summaries << @summary
+                end
             end
         end
     end
+    
 end
