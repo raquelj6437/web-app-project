@@ -7,11 +7,16 @@ Bundler.require
 
 require_relative 'models/model.rb'
 
-class Player < ActiveRecord::Base
+class Users < ActiveRecord::Base
 end
 
 class ApplicationController < Sinatra::Base
-
+  
+  ActiveRecord::Base.establish_connection(
+    adapter:  'sqlite3',
+    database: 'app.db'
+  )
+  
   get '/' do
     erb :index
   end
@@ -29,6 +34,8 @@ class ApplicationController < Sinatra::Base
   end
   
   post '/favorites' do
+    @users = Users.all
+    
     erb :favorites
   end
 end
