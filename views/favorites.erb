@@ -1,0 +1,12 @@
+<h1>Favorites</h1>
+
+<ul>
+  <% @players.each do |player| %>
+    <li>
+        Name: <%= player.favorites %> 
+
+        <!--<input type="hidden" name="_method" value="DELETE">-->
+        <!--<input type="submit" value="Delete Player">-->
+    </li>
+  <% end %>
+</ul>
