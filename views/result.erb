@@ -14,21 +14,37 @@
     <!-- custom css -->
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <!-- custom JS -->
-    <script src="js/script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase.js"></script>
   </head>
   <body>
     
     <div class="container-fluid">
+      <form method="post" action="/favorites">
+        <div id= form>
+           <button type="button" class="btn btn-primary" value='favorites'>Favorites</button>
+        </div>
+      </form>
+      <!--<form method="post" action="/signin">-->
+      <!--  <div id= form>-->
+      <!--     <button type="button" class="btn btn-primary" value='signin'>Sign In</button>-->
+      <!--  </div>-->
+      <!--</form>-->
       <h1>Mood: <%= @user_mood %></h1>
     </div>
     
     <div class="container-fluid">
-      <% for i in 0..@movie.movie_titles.length %>
+      <% for i in 0...@movie.movie_titles.length %>
         <h2><b><%= @movie.movie_titles[i] %></b></h2>
         <img src=<%= "https://image.tmdb.org/t/p/w500/" + @movie.movie_posters[i].to_s %>>
         <h4>SUMMARY:</h4>
         <h4 id="summary"><%= @movie.movie_summaries[i] %></h4>
+        <p>
+          <button type="button" class="btn btn-default btn-sm" value = @movie_arr[i]>
+            <span class="glyphicon glyphicon-heart-empty"></span>
+          </button>
+        </p>
       <%end%>
     </div>
   </body>
+  <script src="js/script.js"></script>
 </html>

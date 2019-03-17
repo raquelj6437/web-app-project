@@ -1,9 +1,14 @@
 require 'dotenv/load'
 require 'bundler'
 require 'paralleldots'
+require 'active_record'
+require 'sqlite3'
 Bundler.require
 
 require_relative 'models/model.rb'
+
+class Player < ActiveRecord::Base
+end
 
 class ApplicationController < Sinatra::Base
 
@@ -21,5 +26,9 @@ class ApplicationController < Sinatra::Base
     @movie.get_info(@movie_arr)
 
     erb :result
+  end
+  
+  post '/favorites' do
+    erb :favorites
   end
 end
