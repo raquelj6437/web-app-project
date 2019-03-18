@@ -4,51 +4,30 @@ h1{
 }
 
 h3{
-    color: grey;
-    text-align: center;
+  color: grey;
+  text-align: center;
 }
-img{
-    border-color:blue;
-    
-}
+
 h2{
-    text-align: center;
-    
+  text-align: center;
+  
 }
+
 h4{
-    color: #3286A2;
-    
+  color: #3286A2;
 }
+
 #summary{
-    color:grey;
-}
-#form{
-    text-align: center;
-    /*padding-left: 100px; */
-    /*padding-right:100px;*/
+  color:grey;
+  height: 500px;
 }
 
-@media (min-width: 768px) {
-    img {
-       padding-left: 250px;
-       padding-right: 250px;
-    }
-   
-
+#summary-div{
+    position: relative;
+    top: 100px;
 }
 
-@media (min-width: 992px) {
-    img {
-        padding-left: 300px;
-        padding-right: 300px;
-    }
-}
-
-
-@media (min-width: 1200px) {
-    img {
-        padding-left: 450px;
-        padding-right: 450px;
-    }
-
+button{
+    position: relative;
+    bottom: 200px;
 }
