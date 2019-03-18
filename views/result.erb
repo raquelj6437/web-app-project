@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>title</title>
+    <title>Movies</title>
     <!-- bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- jQuery -->
@@ -12,34 +12,131 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
     <!-- custom css -->
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <!--<link rel="stylesheet" href="css/style.css" type="text/css">-->
     <!-- custom JS -->
     <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase.js"></script>
   </head>
   <body>
     
+    <style>
+      h1{
+        color: #3286A2;
+        text-align: center;
+      }
+      
+      h3{
+          color: grey;
+          text-align: center;
+      }
+      img{
+          border-color:blue;
+          
+      }
+      h2{
+          text-align: center;
+          color: black;
+      }
+      h4{
+          color: #3286A2;
+          
+      }
+      #summary{
+          color:grey;
+          height: 500px;
+      }
+      
+      img{
+          height: 500px;
+          position:relative;
+      }
+      
+      #summary-div{
+        position: relative;
+        top: 100px;
+      }
+      
+      button{
+        position: relative;
+        bottom: 200px;
+      }
+        
+      @media (min-width: 1200px) {
+          img {
+              left: 170px;
+          }
+      }
+      
+      body {
+      	width: 100wh;
+      	height: 90vh;
+      	color: #fff;
+      	background: linear-gradient(270deg, #e3b4e8, #d9b3df, #dccedf, #f0e6f2);
+      	
+      	background-size: 400% 400%;
+      	-webkit-animation: Gradient 7s ease infinite;
+      	-moz-animation: Gradient 7s ease infinite;
+      	animation: Gradient 7s ease infinite;
+      }
+      
+      @-webkit-keyframes Gradient {
+      	0% {
+      		background-position: 0% 50%
+      	}
+      	50% {
+      		background-position: 100% 50%
+      	}
+      	100% {
+      		background-position: 0% 50%
+      	}
+      }
+      
+      @-moz-keyframes Gradient {
+      	0% {
+      		background-position: 0% 50%
+      	}
+      	50% {
+      		background-position: 100% 50%
+      	}
+      	100% {
+      		background-position: 0% 50%
+      	}
+      }
+      
+      @keyframes Gradient {
+      	0% {
+      		background-position: 0% 50%
+      	}
+      	50% {
+      		background-position: 100% 50%
+      	}
+      	100% {
+      		background-position: 0% 50%
+      	}
+      }
+    </style>
+    
     <div class="container-fluid">
-      <form method="post" action="/favorites">
-        <div id= form>
-          <input type="text" name="name" size="30"><br>
-          <input type="submit" class="btn btn-primary" value='favorites'></button>
-        </div>
-      </form>
       <h1>Mood: <%= @user_mood %></h1>
       <h3>Movies: <%= @genre_list %></h3>
     </div>
     
     <div class="container-fluid">
       <% for i in 0...@movie.movie_titles.length %>
-        <h2><b><%= @movie.movie_titles[i] %></b></h2>
-        <img src=<%= "https://image.tmdb.org/t/p/w500/" + @movie.movie_posters[i].to_s %>>
-        <h4>SUMMARY:</h4>
-        <h4 id="summary"><%= @movie.movie_summaries[i] %></h4>
-        <p>
-          <button type="button" class="btn btn-default btn-sm" value = @movie_arr[i]>
-            <span class="glyphicon glyphicon-heart-empty"></span>
-          </button>
-        </p>
+        <div class="col-sm-6">
+          <h2><b><%= @movie.movie_titles[i] %></b></h2>
+          <img src=<%= "https://image.tmdb.org/t/p/w500/" + @movie.movie_posters[i].to_s %>>
+        </div>
+        <div class="col-sm-6">
+          <div id ='summary-div'>
+            <h4>SUMMARY:</h4>
+            <h4 id="summary"><%= @movie.movie_summaries[i] %></h4>
+          </div>
+          <p>
+            <button type="button" class="btn btn-default btn-sm" value = @movie_arr[i]>
+              <span class="glyphicon glyphicon-heart-empty"></span>
+            </button>
+          </p>
+        </div>
       <%end%>
     </div>
   </body>

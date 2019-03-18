@@ -1,22 +1,11 @@
 require 'dotenv/load'
 require 'bundler'
 require 'paralleldots'
-require 'active_record'
-require 'sqlite3'
 Bundler.require
 
 require_relative 'models/model.rb'
 
-class Users < ActiveRecord::Base
-end
-
 class ApplicationController < Sinatra::Base
-  
-  ActiveRecord::Base.establish_connection(
-    adapter:  'sqlite3',
-    database: 'app.db'
-  )
-  
   get '/' do
     erb :index
   end
@@ -31,11 +20,5 @@ class ApplicationController < Sinatra::Base
     @movie.get_info(@movie_arr)
 
     erb :result
-  end
-  
-  post '/favorites' do
-    @users = Users.all
-    
-    erb :favorites
   end
 end

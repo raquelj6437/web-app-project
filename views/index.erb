@@ -12,24 +12,77 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
     <!-- custom css -->
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <!--<link rel="stylesheet" href="css/style.css" type="text/css">-->
     <!-- custom JS -->
     <script src="https://www.gstatic.com/firebasejs/5.9.0/firebase.js"></script>
   </head>
-  <body>
+  <style>
+    .mySlides {display:none;}
     
-    <div class="container-fluid">
-
-      <h1>Welcome To The Moodvie App!</h1>
-      <h3>Input your current mood!</h3> 
-      <form method="post" action="/result">
-      <div id= form>
-         <input type="text" name="mood" size="30"><br>
-         <input type="submit" value="Submit">
-      </div>
-      </form>
-    </div>
+    h1{
+      color: #3286A2;
+      text-align: center;
+    }
+    
+    h3{
+      color: grey;
+      text-align: center;
+    }
+    
+    #form{
+      text-align: center;
+      padding-left: 100px; 
+      padding-right:100px;
+    }
+    
+    .container-fluid{
+      background-color: white;
+      z-index: 1; position:relative;
+      width: 600px;
+      height: 300px;
+      top: 100px;
+    }
+    
+    #inside{
+      position: relative;
+      top: 50px;
+    }
+  </style>
   
+  <body>
+    <div style='height:200px'>
+      <img class="mySlides" src="https://i.pinimg.com/originals/1a/06/54/1a065486f384a4cc8414d634b3a4f2e3.jpg" style="width:100%">
+      <img class="mySlides" src="https://cdnb.artstation.com/p/assets/images/images/015/927/307/large/vindz-henchman-frozen-2-poster-4.jpg?1550203614" style="width:100%">
+      <img class="mySlides" src="https://m.media-amazon.com/images/M/MV5BMTYxNjE2NjIwOF5BMl5BanBnXkFtZTgwMjE0MzkxNzM@._V1_.jpg" style="width:100%">
+    </div>
+    <div class="container-fluid">
+      <div id='inside'>
+        <h1>Welcome To The Moodvie App!</h1>
+        <h3>Input your current mood!</h3> 
+        <form method="post" action="/result">
+        <div id= form>
+           <input type="text" name="mood" size="30"><br>
+           <input type="submit" value="Submit">
+        </div>
+        </form>
+      </div>
+    </div>
   </body>
+  <script>
+    var myIndex = 0;
+    carousel();
+    
+    function carousel() {
+      var i;
+      var x = document.getElementsByClassName("mySlides");
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";  
+      }
+      myIndex++;
+      if (myIndex > x.length) {myIndex = 1}    
+      x[myIndex-1].style.display = "block";  
+      setTimeout(carousel, 1000); // Change image every 2 seconds
+    }
+  </script>
   <script src="js/script.js"></script>
 </html>
