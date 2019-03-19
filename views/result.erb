@@ -64,6 +64,10 @@
           }
       }
       
+      #genre_list{
+        text-align:center;
+      }
+      
       body {
       	width: 100wh;
       	height: 90vh;
@@ -115,7 +119,7 @@
     
     <div class="container-fluid">
       <h1>Mood: <%= @user_mood %></h1>
-      <h3>Genres: <%= @genre_list %></h3>
+      <h3 id='genre_list'>Genres: <%= @genre_list %></h3>
     </div>
     
     <div class="container-fluid">
@@ -127,13 +131,17 @@
         <div class="col-sm-6">
           <div id ='summary-div'>
             <h4>SUMMARY:</h4>
-            <h3 id="summary"><%= @movie.movie_summaries[i] %></h3><br>
+            <h3><%= @movie.movie_summaries[i] %></h3><br>
             <h4>RATING:</h4>
-            <h3 id="summary"><%= @movie.movie_ratings[i] %></h3><br>
+            <div class="progress">
+              <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="10" style="width: <%= (@movie.movie_ratings[i]/10)*100 %>%">
+                <%= @movie.movie_ratings[i] %>
+              </div>
+            </div>
             <h4>RELEASE DATE</h4>
-            <h3 id="summary"><%= @movie.movie_release_dates[i] %></h3><br>
+            <h3><%= @movie.movie_release_dates[i] %></h3><br>
             <h4>MOVIE LANGUAGE</h4>
-            <h3 id="summary"><%= @movie.movie_languages[i] %></h3><br>
+            <h3><%= @movie.movie_languages[i] %></h3><br>
           </div>
           <p>
             <button type="button" class="btn btn-default btn-sm" value = @movie_arr[i]>
