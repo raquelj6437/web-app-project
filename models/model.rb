@@ -30,12 +30,15 @@ def genres(moods_hash)
 end
 
 class Movie
-    attr_reader :title, :poster, :summary, :movie_titles, :movie_posters, :movie_summaries
+    attr_reader :title, :poster, :summary, :movie_titles, :movie_posters, :movie_summaries, :movie_ratings, :movie_release_dates, :movie_languages
  
     def initialize
         @movie_titles = []
         @movie_posters = []
         @movie_summaries = []
+        @movie_ratings = []
+        @movie_release_dates = []
+        @movie_languages = []
     end
  
     def get_genre_id(genre)
@@ -66,11 +69,17 @@ class Movie
                 @title = movie["title"]
                 @poster = movie["poster_path"]
                 @summary = movie["overview"]
+                @rating = movie["vote_average"]
+                @release_date = movie["release_date"]
+                @language = movie["original_language"]
             
                 if @movie_titles.include?(@title) == false
                     @movie_titles << @title
                     @movie_posters << @poster
                     @movie_summaries << @summary
+                    @movie_ratings << @rating
+                    @movie_release_dates << @release_date
+                    @movie_languages << @language
                 end
             end
         end
