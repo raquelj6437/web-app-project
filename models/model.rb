@@ -30,7 +30,7 @@ def genres(moods_hash)
 end
 
 class Movie
-    attr_reader :title, :poster, :summary, :movie_titles, :movie_posters, :movie_summaries, :movie_ratings, :movie_release_dates, :movie_languages
+    attr_reader :title, :poster, :summary, :movie_titles, :movie_posters, :movie_summaries, :movie_ratings, :movie_release_dates, :movie_languages, :movie_ids
  
     def initialize
         @movie_titles = []
@@ -39,6 +39,7 @@ class Movie
         @movie_ratings = []
         @movie_release_dates = []
         @movie_languages = []
+        @movie_ids = []
     end
  
     def get_genre_id(genre)
@@ -62,9 +63,28 @@ class Movie
         end
     end
 
+    def get_trailer(id)
+        movie = JSON.parse(open("https://api.themoviedb.org/3/movie/"+ id +"?api_key= " + ENV['MOVIE_API'] + "&append_to_response=videos"){ |x| x.read })
+        link = movie['videos']['result'][0]['key']
+        # movie_trailer_link
+        puts link
+    end
+    
+    def get_trailer(id)
+        id = id.to_s
+        movie = JSON.parse(open("https://api.themoviedb.org/3/movie/"+ id +"?api_key=" + ENV['MOVIE_API'] + "&append_to_response=videos"){ |x| x.read })
+        if movie['videos']['results'][0] == nil
+            return
+        else
+            link = movie['videos']['results'][0]['key']
+            @movie_trailer_link = "https://www.youtube.com/watch?v=" + link
+            return @movie_trailer_link
+        end
+    end
+    
     def get_info(genre_arr)
         if @movie_titles.length <= 3 
-            @movie_arr.shuffle!
+            @movie_arr[0].shuffle!
             for movie in @movie_arr[0]
                 @title = movie["title"]
                 @poster = movie["poster_path"]
@@ -72,6 +92,7 @@ class Movie
                 @rating = movie["vote_average"]
                 @release_date = movie["release_date"]
                 @language = movie["original_language"]
+                @id = movie["id"]
             
                 if @movie_titles.include?(@title) == false
                     @movie_titles << @title
@@ -80,6 +101,7 @@ class Movie
                     @movie_ratings << @rating
                     @movie_release_dates << @release_date
                     @movie_languages << @language
+                    @movie_ids << @id
                 end
             end
         end

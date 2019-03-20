@@ -46,16 +46,25 @@
           position:relative;
       }
       
+      p{
+        color: black;
+      }
+      
       #summary-div{
         position: relative;
         top: 100px;
         height: 600px;
       }
       
-      button{
+      #favorite_button{
         position: relative;
         bottom: 100px;
         left: 500px;
+      }
+      
+      #trailer_button{
+        position: relative;
+        bottom: 100px;
       }
         
       @media (min-width: 1200px) {
@@ -124,6 +133,7 @@
     
     <div class="container-fluid">
       <% for i in 0...@movie.movie_titles.length %>
+      <div id='info'>
         <div class="col-sm-6">
           <h2><b><%= @movie.movie_titles[i] %></b></h2>
           <img src=<%= "https://image.tmdb.org/t/p/w500/" + @movie.movie_posters[i].to_s %>>
@@ -142,15 +152,37 @@
             <h3><%= @movie.movie_release_dates[i] %></h3><br>
             <h4>MOVIE LANGUAGE</h4>
             <h3><%= @movie.movie_languages[i] %></h3><br>
+            <p type='button'><a href='<%=@movie.get_trailer(@movie.movie_ids[i])%>' target="_blank">Click here for Trailer</a></p>
           </div>
-          <p>
-            <button type="button" class="btn btn-default btn-sm" value = @movie_arr[i]>
-              <span class="glyphicon glyphicon-heart-empty"></span>
-            </button>
-          </p>
+            <p>
+              <button type="button" class="btn btn-default btn-sm" id='favorite_button'>
+                <span class="glyphicon glyphicon-heart-empty"></span>
+              </button>
+              <!--<button type="button" class="btn btn-primary" id='hide_trailer'>Movie Information</button>-->
+            </p>
+          </div>
         </div>
       <%end%>
     </div>
   </body>
   <script src="js/script.js"></script>
+  <script>
+    // $('.trailer').hide()
+    // $('#hide_trailer').hide()
+    // $("#trailer_button").click(function(){
+    //   $("." + $('#trailer_button').attr('id')).show()
+    //   $('#info').hide()
+    //   $('#hide_trailer').show()
+    //   $("#video")[0].src += "&autoplay=1";
+    // ev.preventDefault();
+    //   $('html, body').animate({
+    //     scrollTop: $("." + $('#trailer_button').attr('class')).offset().top
+    //   }, 1000)
+    // });
+    // $("#hide_trailer").click(function(){
+    //   $('.trailer').hide()
+    //   $('#info').show()
+    //   $('#hide_trailer').show()
+    // });
+  </script>
 </html>
