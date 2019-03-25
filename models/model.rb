@@ -29,10 +29,12 @@ def genres(moods_hash)
     end
 end
 
+# class of each movie
 class Movie
     attr_reader :title, :poster, :summary, :movie_titles, :movie_posters, :movie_summaries, :movie_ratings, :movie_release_dates, :movie_languages, :movie_ids
  
     def initialize
+        # each movie list
         @movie_titles = []
         @movie_posters = []
         @movie_summaries = []
@@ -41,7 +43,7 @@ class Movie
         @movie_languages = []
         @movie_ids = []
     end
- 
+    
     def get_genre_id(genre)
         @id_arr = []
         genres = JSON.parse(open('https://api.themoviedb.org/3/genre/movie/list?api_key=' + ENV['MOVIE_API']){ |x| x.read }) # based on the genre, it finds the genre id
@@ -55,6 +57,7 @@ class Movie
         return @id_arr
     end
 
+    # gets a list of movies based on the genre
     def get_movies_by_genre(genre)
         @movie_arr = []
         genre.each do |id|
@@ -62,7 +65,8 @@ class Movie
             @movie_arr.push(movies["results"])
         end
     end
-
+    
+    # gets id of the movie trailer
     def get_trailer(id)
         movie = JSON.parse(open("https://api.themoviedb.org/3/movie/"+ id +"?api_key= " + ENV['MOVIE_API'] + "&append_to_response=videos"){ |x| x.read })
         link = movie['videos']['result'][0]['key']
@@ -70,6 +74,7 @@ class Movie
         puts link
     end
     
+    # get the trailer of movie
     def get_trailer(id)
         id = id.to_s
         movie = JSON.parse(open("https://api.themoviedb.org/3/movie/"+ id +"?api_key=" + ENV['MOVIE_API'] + "&append_to_response=videos"){ |x| x.read })
