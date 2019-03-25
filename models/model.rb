@@ -4,7 +4,7 @@ require 'pp'
 require 'json'
 require 'open-uri'
 
-set_api_key(ENV["PARALLEL_API"])
+set_api_key(ENV["PARALLEL_API"]) # authentication for Parallel Dots API
 
 $moods = {
     "happy" => ["Comedy", "Adventure", "Action"],
@@ -16,15 +16,15 @@ $moods = {
 }
 
 def get_mood(mood)
-    @user_mood=emotion(mood)
-    @user_mood = @user_mood["emotion"]["emotion"]
+    @user_mood=emotion(mood) # the mood the user puts in is analyzed by the api - returns a hash
+    @user_mood = @user_mood["emotion"]["emotion"] # goes into the hash and finds the associated emotion, assigns it to @user_mood
 end
 
 
 def genres(moods_hash)
-    moods_hash.each do |mood,moods|
-        if mood == @user_mood.downcase
-            @genre_list = moods
+    moods_hash.each do |mood,moods| # iterates through the moods hash
+        if mood == @user_mood.downcase # if the mood in the moods hash is equal to the mood in @user_mood
+            @genre_list = moods # sets the variable equal to the value in the moods hash, which is an array
         end
     end
 end
@@ -44,8 +44,8 @@ class Movie
  
     def get_genre_id(genre)
         @id_arr = []
-        genres = JSON.parse(open('https://api.themoviedb.org/3/genre/movie/list?api_key=' + ENV['MOVIE_API']){ |x| x.read })
-        genres['genres'].each do |i|
+        genres = JSON.parse(open('https://api.themoviedb.org/3/genre/movie/list?api_key=' + ENV['MOVIE_API']){ |x| x.read }) # based on the genre, it finds the genre id
+        genres['genres'].each do |i| 
             genre.each do |x|
                 if x == i['name']
                     @id_arr.push(i['id'].to_s)
