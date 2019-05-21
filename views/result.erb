@@ -125,7 +125,6 @@
       	}
       }
       
-      
     </style>
     
     <div class="container-fluid">
@@ -134,28 +133,27 @@
     </div>
     
     <div class="container-fluid">
-      <% for i in 0...@movie.movie_titles.length %>
-        <div style='background-image: url(<%= @movie.movie_backdrops[i]%>)'>
+      <% Movie.all.each do |movie| %>
           <div id='info'>
             <div class="col-sm-6">
-              <h2><b><%= @movie.movie_titles[i] %></b></h2>
-              <img src=<%= "https://image.tmdb.org/t/p/w500/" + @movie.movie_posters[i].to_s %>>
+              <h2><b><%= movie.title %></b></h2>
+              <img src=<%= "https://image.tmdb.org/t/p/w500/" + movie.poster.to_s %>>
             </div>
             <div class="col-sm-6">
               <div id ='summary-div'>
                 <h4>SUMMARY:</h4>
-                <h3><%= @movie.movie_summaries[i] %></h3><br>
+                <h3><%= movie.summary %></h3><br>
                 <h4>RATING:</h4>
                 <div class="progress">
-                  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="10" style="width: <%= (@movie.movie_ratings[i]/10.0)*100 %>%">
-                    <%= @movie.movie_ratings[i] %>
+                  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="10" style="width: <%= (movie.rating/10.0)*100 %>%">
+                    <%= movie.rating %>
                   </div>
                 </div>
                 <h4>RELEASE DATE</h4>
-                <h3><%= @movie.movie_release_dates[i] %></h3><br>
+                <h3><%= movie.release_date %></h3><br>
                 <h4>MOVIE LANGUAGE</h4>
-                <h3><%= @movie.movie_languages[i] %></h3><br>
-                <p type='button'><a href='<%=@movie.get_trailer(@movie.movie_ids[i])%>' target="_blank">Click here for Trailer</a></p>
+                <h3><%= movie.language %></h3><br>
+                <p type='button'><a href='<%=movie.get_trailer(movie.id)%>' target="_blank">Click here for Trailer</a></p>
               </div>
                 <p>
                   <button type="button" class="btn btn-default btn-sm" id='favorite_button'>
@@ -167,7 +165,6 @@
           </div>
         <%end%>
       </div>
-    </div>
   </body>
   <script src="js/script.js"></script>
   <script>

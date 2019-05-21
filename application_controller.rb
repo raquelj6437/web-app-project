@@ -14,10 +14,10 @@ class ApplicationController < Sinatra::Base
     # puts params
     @user_mood = params[:mood]
     get_mood(@user_mood)
-    genres($moods)
-    @movie = Movie.new # creates an instance of the movie class
-    @movie.get_movies_by_genre(@movie.get_genre_id(@genre_list)) # finds the genre id based on the list of genres in the array, then finds a list of movies
-    @movie.get_info(@movie_arr) # gets all the info for each movie (title, poster, rating, etc.)
+    @movie_list = get_movies_by_genre(get_genre_id(genres($moods)))[0]
+    @movie_list.each do |movie|
+      Movie.new(movie) # creates an instance of the movie class
+    end
     erb :result
   end
 end
