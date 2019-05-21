@@ -31,7 +31,7 @@ end
 
 # class of each movie
 class Movie
-    attr_reader :title, :poster, :summary, :movie_titles, :movie_posters, :movie_summaries, :movie_ratings, :movie_release_dates, :movie_languages, :movie_ids
+    attr_reader :title, :poster, :summary, :movie_titles, :movie_posters, :movie_summaries, :movie_ratings, :movie_release_dates, :movie_languages, :movie_ids, :movie_backdrops
  
     def initialize
         # each movie list
@@ -42,6 +42,7 @@ class Movie
         @movie_release_dates = []
         @movie_languages = []
         @movie_ids = []
+        @movie_backdrops = []
     end
     
     def get_genre_id(genre)
@@ -98,6 +99,7 @@ class Movie
                 @release_date = movie["release_date"]
                 @language = movie["original_language"]
                 @id = movie["id"]
+                @backdrop = movie["backdrop_path"]
             
                 if @movie_titles.include?(@title) == false
                     @movie_titles << @title
@@ -107,6 +109,7 @@ class Movie
                     @movie_release_dates << @release_date
                     @movie_languages << @language
                     @movie_ids << @id
+                    @movie_backdrops << "https://image.tmdb.org/t/p/original" + @backdrop
                 end
             end
         end
